@@ -20,6 +20,7 @@
             <ul class="form-style-1">
 
                 <li><label>Enter Postgres localhost port number. <span class="required">*</span></label>
+                    <div style="color: #FF0000;">${createError}</div>
                     <div style="color: #FF0000;">${portError}</div>
                     <input type="number" name="port" class="field-long" min="1" max="9999" step="1" value="${port}">
 

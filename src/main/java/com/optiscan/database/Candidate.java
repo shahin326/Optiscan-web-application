@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
+ * This class is used to create Candidate objects.
  * @author Sl-lAl-liN
  */
 

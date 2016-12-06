@@ -11,36 +11,43 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 /**
- *
+ * This class builds EntityManager object for FormServlet.
  * @author Sl-lAl-liN
  */
 public class PersistenceBuilder {
     
+    /**
+     * String variables, which be used to store entered information by config form.
+     */
     public static String PORT;
     public static String DATABASE_NAME;
     public static String USERNAME;
     public static String PASSWORD;
     
+    /**
+     * Name of the PERSISTENCE_UNIT
+     */
     private static final String PERSISTENCE_UNIT_NAME = "com_ShahinSafari-Optiscan_war_1.0";
 
+    /**
+     * EntityManager variable.
+     */
     private static EntityManager entityManager;
     
-    /* <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Candidate_database"/>
-      <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-      <property name="hibernate.connection.username" value="postgres"/>
-      <property name="hibernate.connection.password" value="pass"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>*/
 
     public static void build() {
+        //Create a HashMap to store properties
         Map<String, String> persistenceMap = new HashMap<>();
 
+        //Properties of PERSISTENCE_UNIT 
         persistenceMap.put("hibernate.connection.url", "jdbc:postgresql://localhost:"+PORT+"/"+DATABASE_NAME);
         persistenceMap.put("hibernate.connection.driver_class", "org.postgresql.Driver");
         persistenceMap.put("hibernate.connection.username", USERNAME);
         persistenceMap.put("hibernate.connection.password", PASSWORD);
         persistenceMap.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         persistenceMap.put("hibernate.hbm2ddl.auto", "update");
+        
+        //create entityManager object 
         entityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME,persistenceMap).createEntityManager();
     }
 
