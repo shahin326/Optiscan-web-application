@@ -21,8 +21,8 @@
 
                 <li><label>Full Name <span class="required">*</span></label>
                     <div style="color: #FF0000;">${nameError}</div>
-                    <input type="text" name="firstname"  class="field-divided" placeholder="First" maxlength="50" value="${firstname}"/>
-                    <input type="text" name="lastname" class="field-divided" placeholder="Last" maxlength="50" value="${lastname}"/>
+                    <input type="text" name="firstname"  class="field-divided" placeholder="First" maxlength="50" value="${firstName}"/>
+                    <input type="text" name="lastname" class="field-divided" placeholder="Last" maxlength="50" value="${lastName}"/>
                 </li>
 
                 <li>    

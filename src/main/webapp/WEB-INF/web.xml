@@ -2,15 +2,23 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>FormServlet</servlet-name>
-        <servlet-class>com.optiscan.FormServlet</servlet-class>
+        <servlet-class>com.optiscan.servlets.FormServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Configure</servlet-name>
+        <servlet-class>com.optiscan.servlets.Configure</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FormServlet</servlet-name>
         <url-pattern>/FormServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Configure</servlet-name>
+        <url-pattern>/Configure</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            3000
         </session-timeout>
     </session-config>
 </web-app>
