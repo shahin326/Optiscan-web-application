@@ -61,6 +61,10 @@ select{
 .form-style-1 .field-long{
     width: 100%;
 }
+
+.form-style-1 .field-short{
+    width: 100%;
+}
 .form-style-1 .field-select{
     width: 100%;
 }

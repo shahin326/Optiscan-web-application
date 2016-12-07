@@ -28,9 +28,12 @@
                 <li>    
                     <label>Date of birth <span class="required">*</span></label>
                     <div style="color: #FF0000;">${dateError}</div>
-                    <input type="number" name="day" min="1" max="31" step="1" value="${day}"> day
-                    <input type="number" name="month" min="1" max="12" step="1" value="${month}"> month
-                    <input type="number" name="year" min="1918" max="2001" step="1"value="${year}"> year
+                    <div style="color: #FF0000;">${dayError}</div>
+                    <div style="color: #FF0000;">${monthError}</div>
+                    <div style="color: #FF0000;">${yearError}</div>
+                    <input type="number" name="day"  min="1" max="31" step="1" value="${day}"> day
+                    <input type="number" name="month"  min="1" max="12" step="1" value="${month}"> month
+                    <input type="number" name="year"  min="1918" max="2001" step="1"value="${year}"> year
 
                 </li>
                 <li>

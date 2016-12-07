@@ -8,6 +8,8 @@ package com.optiscan.servlets;
 import com.optiscan.database.PersistenceBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * This servlet is responsible for processing config form.
+ *
  * @author Sl-lAl-liN
  */
 public class Configure extends HttpServlet {
 
     /**
-     * String variables, which be used to store entered information by config form.
+     * String variables, which be used to store entered information by config
+     * form.
      */
     private String port;
     private String databaseName;
@@ -29,7 +33,7 @@ public class Configure extends HttpServlet {
     private String password;
 
     /**
-     * Boolean variable, which will represent if the form validated or not. 
+     * Boolean variable, which will represent if the form validated or not.
      */
     private Boolean validated;
 
@@ -45,7 +49,7 @@ public class Configure extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         // Get all entered values
         this.port = request.getParameter("port");
         this.databaseName = request.getParameter("databaseName");
@@ -57,17 +61,23 @@ public class Configure extends HttpServlet {
             keepValues(request, response);
             request.getRequestDispatcher("/config.jsp").forward(request, response);
         } else {
-            //try creating an entity manager 
-            if (!checkDatabaseConnection()) {
-                //databse connection failed
+            try {
+                //try creating an entity manager
+                if (!checkDatabaseConnection()) {
+                    //databse connection failed
+                    request.setAttribute("createError", "Could not connect to database please verify input values and try again.");
+                    keepValues(request, response);
+                    request.getRequestDispatcher("/config.jsp").forward(request, response);
+                } else {
+                    //database connection stablished
+                    response.sendRedirect("/ShahinSafari-Optiscan/form.jsp");
+                }
+            } catch (Exception ex) {
                 request.setAttribute("createError", "Could not connect to database please verify input values and try again.");
                 keepValues(request, response);
                 request.getRequestDispatcher("/config.jsp").forward(request, response);
-            }else{
-                //database connection stablished
-                response.sendRedirect("/ShahinSafari-Optiscan/form.jsp");
             }
-            
+
         }
 
     }
@@ -133,7 +143,7 @@ public class Configure extends HttpServlet {
         }
 
         if (username.equals("")) {
-            request.setAttribute("usernameError", "Usename is missing");
+            request.setAttribute("usernameError", "Username is missing");
             validated = false;
         }
 
@@ -150,7 +160,7 @@ public class Configure extends HttpServlet {
      *
      * @return true if entity created, false otherwise
      */
-    private Boolean checkDatabaseConnection() {
+    private Boolean checkDatabaseConnection() throws Exception {
         PersistenceBuilder.PORT = port;
         PersistenceBuilder.DATABASE_NAME = databaseName;
         PersistenceBuilder.USERNAME = username;
@@ -168,7 +178,7 @@ public class Configure extends HttpServlet {
 
     /**
      * Keeps input values in the web form.
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      */

@@ -35,7 +35,7 @@ public class PersistenceBuilder {
     private static EntityManager entityManager;
     
 
-    public static void build() {
+    public static void build() throws Exception{
         //Create a HashMap to store properties
         Map<String, String> persistenceMap = new HashMap<>();
 
@@ -51,7 +51,7 @@ public class PersistenceBuilder {
         entityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME,persistenceMap).createEntityManager();
     }
 
-    public static EntityManager getEntityManager() {
+    public static EntityManager getEntityManager() throws Exception {
         build();
         return entityManager;
     }

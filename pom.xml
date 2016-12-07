@@ -4,7 +4,7 @@
 
     <groupId>com</groupId>
     <artifactId>ShahinSafari-Optiscan</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>war</packaging>
 
     <name>ShahinSafari-Optiscan</name>
@@ -22,6 +22,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
@@ -42,12 +43,13 @@
             <version>9.4.1211</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/net.sourceforge.jwebunit/jwebunit-core -->
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
-            <groupId>net.sourceforge.jwebunit</groupId>
-            <artifactId>jwebunit-core</artifactId>
-            <version>2.5</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
+
         
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
         <dependency>
@@ -94,6 +96,7 @@
                 <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>ShahinSafari-Optiscan</warName>
                 </configuration>
             </plugin>
             <plugin>

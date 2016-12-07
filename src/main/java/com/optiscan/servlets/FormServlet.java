@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
@@ -67,15 +69,19 @@ public class FormServlet extends HttpServlet {
             keepValues(request);
             request.getRequestDispatcher("/form.jsp").forward(request, response);
         } else {
-            // form validated
-            saveCandidate();
-            
+            try {
+                // form validated
+                saveCandidate();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+
             //confirm results to the user
             confirmSubmission(request, response);
         }
     }
 
-    private void saveCandidate() {
+    private void saveCandidate() throws Exception {
         //create entity manager 
         EntityManager entityManager = PersistenceBuilder.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -131,7 +137,6 @@ public class FormServlet extends HttpServlet {
 
     }
 
-    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -175,6 +180,59 @@ public class FormServlet extends HttpServlet {
         if (day.equals("") || month.equals("") || year.equals("")) {
             request.setAttribute("dateError", "Please enter your birthday:");
             validated = false;
+        }
+        //validate not empty day
+        if (!day.equals("")) {
+            //day is not empty
+            //validate day, it must be between 1 and 31
+            int d;
+            try {
+                d = Integer.parseInt(day);
+                if (d < 1 || d > 31) {
+                    //invalid day
+                    request.setAttribute("dayError", "Day must be between 1-31");
+                    validated = false;
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("dayError", "Please enter number for day:");
+                validated = false;
+            }
+
+        }
+        //validate not empty month
+        if (!month.equals("")) {
+            //month is not empty
+            //validate month, it must be between 1 and 12
+            int m;
+            try {
+                m = Integer.parseInt(month);
+                if (m < 1 || m > 12) {
+                    //invalid day
+                    request.setAttribute("monthError", "Month must be between 1-12");
+                    validated = false;
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("monthError", "Please enter number for month:");
+                validated = false;
+            }
+
+        }
+        if (!year.equals("")) {
+            //year is not empty
+            //validate day, it must be between 1 and 31
+            int y;
+            try {
+                y = Integer.parseInt(year);
+                if (y < 1918 || y > 2001) {
+                    //invalid day
+                    request.setAttribute("yearError", "Year must be between 1918-2001");
+                    validated = false;
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("yearError", "Please enter number for year:");
+                validated = false;
+            }
+
         }
         if (gender.equals("")) {
             request.setAttribute("genderError", "Please select your gender:");
